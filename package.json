@@ -1,0 +1,28 @@
+{
+  "name": "interesting",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ouhsnaux/interesting.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ouhsnaux/interesting/issues"
+  },
+  "homepage": "https://github.com/ouhsnaux/interesting#readme",
+  "devDependencies": {
+    "eslint": "^7.16.0",
+    "babel-eslint": "^10.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-import-resolver-webpack": "^0.12.2"
+  }
+}
