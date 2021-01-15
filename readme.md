@@ -3,4 +3,5 @@
 * 4/3小球跳舞
 * 夕阳
 * TODO 代码雨
-* TODO 布尔操作可视化
+* 布尔操作可视化（BoolOperation）
+* 四则运算（Arithmetic）

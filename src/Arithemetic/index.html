@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>布尔操作可视化</title>
+    <title>四则运算</title>
   </head>
   <body>
     <input id="text" type="text">
-    <span id="error"></span>
-    <canvas id="canvas" width="1000" height="500"></canvas>
+    <span id="result"></span>
 
     <script src="../utils.js"></script>
     <script src="index.js"></script>
     <script>
       window.onload = () => {
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
+        const result = document.getElementById('result');
         document.querySelector('#text').addEventListener('input', debounce(function(event) {
-          draw(event.target.value, ctx);
+          result.innerText = calc(event.target.value);
         }, 1000));
       }
     </script>
