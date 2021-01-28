@@ -46,8 +46,6 @@ const constructAST = (str) => {
 
   const addItem = (ast, op, item) => {
     const newAst = {
-      type: op,
-      value: ast.type === op ? ast.value : [ast],
       width: ast.width,
       depth: ast.depth,
     };
@@ -56,14 +54,46 @@ const constructAST = (str) => {
     } else {
       newAst.depth += item.depth || 1;
     }
-    newAst.value.push(item);
+    if (ast.type === '&&') {
+      if (op === '&&') {
+        ast.value.push(item);
+        newAst.value = ast.value;
+        newAst.type = '&&';
+      } else {
+        newAst.value = [ast, item];
+        newAst.type = '||';
+      }
+    } else {
+      if (op === '&&') {
+        const last = ast.value.pop();
+        if (typeof last === 'string' || last.type === '||') {
+          ast.value.push({
+            type: '&&',
+            value: [last, item],
+            width: (item.width || 1) + (last.width || 1),
+            depth: last.depth || 1,
+          });
+        } else {
+          ast.value.push(addItem(last, op, item));
+        }
+      } else {
+        ast.value.push(item);
+      }
+      newAst.value = ast.value;
+      newAst.type = '||';
+    }
     return newAst;
   };
 
   const parseFormula = () => {
     index += 1;
-    let ast = { type: '&&', value: [], width: 1, depth: 1 };
-    ast.value.push(parseItem());
+    const first = parseItem();
+    let ast = {
+      type: '&&',
+      value: [first],
+      width: first.width || 1,
+      depth: first.depth || 1,
+    };
 
     // eslint-disable-next-line
     while (true) {
@@ -83,7 +113,14 @@ const constructAST = (str) => {
     }
   };
 
-  return parseFormula();
+  const ast = parseFormula();
+  parseSpace();
+
+  if (index < str.length) {
+    throw new Error('格式错误');
+  }
+
+  return ast;
 };
 
 const paint = (ast, ctx) => {
