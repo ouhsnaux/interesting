@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .before-change {
+      color: red;
+    }
+    .after-change {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    变更前：
+    <textarea id="before-input"></textarea>
+  </div>
+  <div>
+    变更后:
+    <textarea id="after-input"></textarea>
+  </div>
+  <button id="contrast">对比</button>
+  <div>变更前：</div>
+  <div id="before-text"></div>
+  <div>变更后：</div>
+  <div id="after-text"></div>
+  <script src="./index.js"></script>
+  <script>
+    window.onload = () => {
+      document.getElementById('contrast').addEventListener('click', () => {
+        const before = document.getElementById('before-input').value;
+        const after = document.getElementById('after-input').value;
+        const [beforeDiff, afterDiff] = diff(before, after);
+        document.getElementById('before-text').innerHTML = beforeDiff;
+        document.getElementById('after-text').innerHTML = afterDiff;
+      });
+    }
+  </script>
+</body>
+</html>
